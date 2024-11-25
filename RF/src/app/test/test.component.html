@@ -1,0 +1,8 @@
+<label>Amount(decimal validation)  </label>
+<input
+  type="text"
+  [ngModel]="amount"
+ 
+  (blur)="onBlur()"
+  (input)="onInput($event)"
+/>

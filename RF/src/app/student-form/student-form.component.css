@@ -1,0 +1,24 @@
+/* .row-radius {
+    border-radius: 25px;
+  }
+   */
+
+
+
+   .btn-primary {
+    background-color: #3f51b5;
+}
+
+
+
+
+.focus-blue:focus {
+  outline: none; 
+  border: 2px solid rgb(6, 6, 184); 
+  box-shadow: none; 
+}
+
+
+label {
+  font-weight: 500;
+}

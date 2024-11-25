@@ -1,0 +1,125 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "name": "sdsd",
+      "email": "sdfsd@gmail.com",
+      "subscribe": false,
+      "password": "1234",
+      "confirmPassword": "1234",
+      "gender": "M",
+      "subjects": {
+        "maths": false,
+        "physics": false,
+        "chemistry": false
+      },
+      "status": "Active in Process",
+      "debitsite": [
+        {
+          "key": "",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "name": "testTwo",
+      "email": "test2@gmail.com",
+      "subscribe": true,
+      "password": "0000",
+      "confirmPassword": "0000",
+      "gender": "M",
+      "subjects": {
+        "maths": true,
+        "physics": true,
+        "chemistry": false
+      },
+      "status": "Active in Process",
+      "debitsite": [
+        {
+          "key": "site1",
+          "value": "Currency"
+        },
+        {
+          "key": "site1",
+          "value": "Coin"
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "name": "Three",
+      "email": "test3@gmail.com",
+      "subscribe": true,
+      "password": "0000",
+      "confirmPassword": "0000",
+      "gender": "M",
+      "subjects": {
+        "maths": true,
+        "physics": true,
+        "chemistry": true
+      },
+      "status": "Active in Process/Order",
+      "debitsite": [
+        {
+          "key": "site1",
+          "value": "Currency"
+        },
+        {
+          "key": "site1",
+          "value": "Coin"
+        },
+        {
+          "key": "site1",
+          "value": "Supply"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "name": "Four",
+      "email": "test4@gmail.com",
+      "subscribe": true,
+      "password": "0000",
+      "confirmPassword": "0000",
+      "gender": "M",
+      "subjects": {
+        "maths": true,
+        "physics": true,
+        "chemistry": true
+      },
+      "status": "Active in Process/Order",
+      "debitsite": [
+        {
+          "key": "site3",
+          "value": "Supply"
+        },
+        {
+          "key": "site2",
+          "value": "Supply"
+        }
+      ]
+    },
+    {
+      "id": "123",
+      "name": "sdsd",
+      "email": "sdfsd@gmail.com",
+      "subscribe": false,
+      "password": "1234",
+      "confirmPassword": "1234",
+      "gender": "M",
+      "subjects": {
+        "maths": false,
+        "physics": false,
+        "chemistry": false
+      },
+      "status": "Inactive",
+      "debitsite": [
+        {
+          "key": "",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

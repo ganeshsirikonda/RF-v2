@@ -1,0 +1,293 @@
+
+<div  class="container" >
+  
+    <div class="row mt-5 mb-5 align-items-center">
+      <div class="col-md-1">
+        <label class="ms-4">ID</label>
+      </div>
+      <div class="col-md-4">
+        <input [disabled]="show" #searchId autofocus  placeholder="Enter ID" maxlength="30" type="text"  min="0" (input)="onIdInput($event)" class="form-control focus-blue" (keydown.enter)="focusNext($event,searchButton)" />
+      </div>
+            <div class="col-md-1">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"  (click)="loadRecords()">
+              List
+            </a>
+          </div>
+  
+      <div class="col-md-1">
+        <button type="button" class="btn btn-sm btn-primary" #searchButton  (click)="populate(searchId.value)">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+
+  
+       <!-- <div>
+
+           {{registrationForm.value|json}}
+       </div> -->
+
+
+<div *ngIf="formVisible" class="container border border-primary mt-5" >
+
+ <div class="row">
+   <h1  style="background-color: #4054b4; color: white; padding: 10px ; width: 100%; font-size: 16px;">
+     Student Enrollment Form
+   </h1>
+
+ </div>
+
+ 
+  <form [formGroup]="registrationForm" onsub>
+    <div class="form-group row mb-2">
+        <div class="col-md-1"><label>ID</label></div>
+        <div class="col-md-3">
+             <input    type="text" class="form-control focus-blue" min="0" (input)="onIdInput($event)" formControlName="id" #idField   (keydown.enter)="focusNext($event,nameField)">
+        </div>
+    </div>
+
+
+        <div class="form-group row mb-2">
+            <div class="col-md-1"><label>Name</label></div>
+            <div class="col-md-3">
+                <input #nameField  [class.is-invalid]="getNameError()" type="text" class="form-control focus-blue" formControlName="name" 
+                (keydown.enter)="focusNext($event,emailInput)" >
+                <div *ngIf="getNameError()"> <small class="text-danger">{{ getNameError() }}</small> </div>
+              
+
+                <!-- <div>{{this.registrationForm.get("name")?.errors|json}}</div> -->
+             
+                
+            </div>
+            
+        </div>
+
+
+        <div class="form-group row mb-2">
+          <div class="col-md-1"><label>Email</label></div>
+          <div class="col-md-3">
+            <input [class.is-invalid]="getEmailError()" 
+                   type="text" 
+                   class="form-control focus-blue" 
+                   formControlName="email" 
+                   #emailInput 
+                   (keydown.enter)="focusNext($event, promotionField)">
+                   <div *ngIf="getEmailError()">
+                     <small class="text-danger">{{ getEmailError() }}</small>
+                    </div>
+
+           </div>
+          
+      
+           <div class="row mt-3">
+            <label >Active Status</label>
+            <div class="col-md-3 mt-1">
+              <select id="selection" formControlName="status" class="form-select focus-blue">
+                <option value="">Select Status</option>
+                <option value="Inactive">Inactive</option> <!-- Ensure this matches 'Inactive' -->
+                <option value="Active in Process">Active in Process</option>
+                <option value="Active in Process/Order">Active in Process/Order</option>
+            </select>
+
+            </div>
+          </div>
+          
+         
+          
+          
+          
+            <div formArrayName="debitsite" class="mt-3">
+              <div class="row mb-1">
+                <div class="col-md-3"> <label>Debit Site</label> </div>
+                <div class="col-md-2"> <label>Media Type</label> </div>
+                
+          
+              <div class="col-md-2 ms-3">
+                <button type="button" (click)="addDebitSitePair()" [disabled]="hasEmptySelections()" class="btn btn-outline-secondary btn-sm">Add</button>
+              </div>
+              </div>
+             
+              <div class="row">
+              
+              
+              <div *ngFor="let debitControl of debitsite.controls; let i=index" [formGroupName]="i" class="row mb-2">
+                <div class="col-md-3">
+                  <select #debitSiteSelection  formControlName="key" class="form-select focus-blue">
+                    <option value="">Select Debit Site</option>
+                   
+                    <option value="site1">site1</option>
+                    <option value="site2">site2</option>
+                    <option value="site3">site3</option>
+                  </select>
+                </div>
+                <div class="col-md-3">
+                  <select formControlName="value" class="form-select focus-blue">
+                    <option value="">Select Media Type</option>
+                  
+                    <option value="Currency">Currency</option>
+                    <option value="Coin">Coin</option>
+                    <option value="Supply">Supply</option>
+                  </select>
+                </div>
+                <div class="col-md-2" *ngIf="i==0">
+                  <button type="button" (click)="setToDefaultSelection()" class="btn btn-danger btn-sm">Delete</button>
+                </div>
+                <div class="col-auto" *ngIf="i > 0">
+                  <button type="button" (click)="removeDebitSitePair(i)" class="btn btn-danger btn-sm">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+          <div *ngIf="getDebitSiteError()">
+             <small class="text-danger">{{ getDebitSiteError() }}</small>
+           </div>
+
+         
+          
+         
+          
+            
+         
+          
+          
+          
+         
+          
+        </div>
+        
+
+        <div class="form-group row mb-2">
+          <div class="col-md-1">
+            <label class="form-check-label">Promotions</label> 
+          </div>
+          <div class="col-md-1">
+            <input type="checkbox" formControlName="subscribe" class="form-check-input" #promotionField  (keydown.enter)="focusNext($event,password)">
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+
+            <div class="col-md-1">
+                <label>password</label>
+            </div>
+
+            <div class="col-md-3">
+                <input type="password" class="form-control focus-blue" formControlName="password" #password (keydown.enter)="focusNext($event,confirmpassword)">
+                <div *ngIf="getPasswordError()">
+                   <small class="text-danger">{{ getPasswordError() }}</small> 
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row mb-2">
+            <div class="col-md-1"><label>Confirm Password</label></div>
+            <div class="col-md-3">
+                <input [class.is-invalid]="getConfirmPasswordError()" type="password" class="form-control focus-blue" formControlName="confirmPassword" #confirmpassword (keydown.enter)="focusNext($event,male)">
+                <div *ngIf="getConfirmPasswordError()"> <small class="text-danger">{{ getConfirmPasswordError() }}</small> </div>
+                
+                
+            </div>  
+        </div>
+
+        <div class="row mt-3 mb-3 align-items-center">
+            <div class="col-md-1">
+              <label>Gender </label>
+            </div>
+            <div class="col-md-1">
+              <input   class="form-check-input me-1"   type="radio" value="M" formControlName="gender" #male (keydown.enter)="focusNext($event,female)">
+              <label class="form-check-label"> M </label>
+            </div>
+            <div class="col-md-1">
+              <input  class="form-check-input me-1" type="radio"  value="F"  formControlName="gender"  #female (keydown.enter)="focusNext($event,maths)">
+              <label class="form-check-label"> F </label>
+            </div>
+        </div>
+    
+
+        <div formGroupName="subjects" class="row">
+
+          <div class="col-md-1"><label class="me-4 ">Subjects*</label></div>
+          <div class="col-md-1">
+            <div class="form-check me-3 mb-0">
+              <input class="form-check-input" type="checkbox" formControlName="maths" #maths (keydown.enter)="focusNext($event,physics)">
+              <label>Maths</label>
+            </div>
+            
+            <div class="form-check me-3 mb-0">
+              <input class="form-check-input" type="checkbox" formControlName="physics" #physics (keydown.enter)="focusNext($event,chemistry)">
+              <label>Physics</label>
+            </div>
+            
+         
+
+            <div class="form-check me-3 mb-0">
+              <input class="form-check-input" type="checkbox" formControlName="chemistry" #chemistry >
+              <label>Chemistry</label>
+            </div>
+
+          </div>
+          </div>
+        
+ 
+          <div class="d-flex justify-content-center mb-2">
+              <button type="button" (click)="deleteForm()" class="btn btn-danger btn-sm me-4">Delete</button>
+              <button type="button" (click)="resetForm()" class="btn btn-secondary btn-sm me-4">Reset</button>
+              <button type="button" (click)="setDefaultValues(registrationForm.value)" class="btn btn-secondary btn-sm me-4">Set Default*</button>
+              <button type="button" #submitbtn (click)="send(registrationForm.value)" class="btn btn-primary btn-sm me-4" *ngIf="isNewRecord" [disabled]="registrationForm.invalid || !!registrationForm.errors?.['debitsiteRequired']">Add</button>
+              <button type="submit" class="btn btn-primary btn-sm me-4" *ngIf="!isNewRecord" (click)="modifyRecord(registrationForm.value)" [disabled]="registrationForm.invalid || !!registrationForm.errors?.['debitsiteRequired']">Modify</button>
+              <button type="button" (click)="cancel()" class="btn btn-outline-secondary btn-sm me-4" >Cancel</button>
+
+      
+           </div>
+          
+
+    </form>
+</div>
+
+
+<div class="modal fade" id="exampleModal" #recordModal tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#4054b4;padding:0.5rem;">
+        <h1 class="modal-title fs-5" id="exampleModalLabel" style="color: white;">Student Details</h1>
+        <button   type="button"   class="btn-close"  id="btn-close"   data-bs-dismiss="modal"   aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let student of formRecords"  (click)="selectRecord(student)"  class="cursor-pointer">
+         
+                <td>{{ student.id }}</td>
+                <td>{{ student.name }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer" style="padding: 0.5rem">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+  
+  
+
+    
+    
+  
+  
+  
